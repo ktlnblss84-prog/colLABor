@@ -694,7 +694,7 @@ async function callClaude(messages, isConsolidation) {
         },
         body: JSON.stringify({
             model: 'claude-sonnet-4-20250514',
-            max_tokens: 1000,
+            max_tokens: 2000,
             system: systemPrompt,
             messages: messages
         })
@@ -714,7 +714,7 @@ async function callGPT(messages, isConsolidation) {
         },
         body: JSON.stringify({
             model: 'gpt-4o',
-            max_tokens: 1000,
+            max_tokens: 2000,
             messages: [
                 { role: 'system', content: systemPrompt },
                 ...messages
@@ -742,7 +742,7 @@ async function callGemini(messages, isConsolidation) {
             body: JSON.stringify({
                 system_instruction: { parts: [{ text: systemPrompt }] },
                 contents: contents,
-                generationConfig: { maxOutputTokens: 1000 }
+                generationConfig: { maxOutputTokens: 2000 }
             })
         }
     );
