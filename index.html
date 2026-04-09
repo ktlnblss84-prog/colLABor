@@ -586,7 +586,7 @@ Lies die Frage und alle bisherigen Beiträge sorgfältig. Widersprich wenn du an
 
 PASS und FERTIG sind legitime Antworten — aber mit klarer Unterscheidung:
 PASS — ich habe in dieser Runde nichts Neues beizutragen, werde aber in der nächsten Runde wieder aufgerufen.
-FERTIG — NUR wenn die Frage eindeutig und vollständig beantwortet ist (z.B. bei mathematischen oder logischen Aufgaben mit einer klaren Lösung). Bei offenen philosophischen, ethischen oder kreativen Fragen, oder wenn die Diskussion noch aktiv läuft und andere Modelle widersprechen, ist FERTIG unangemessen — verwende dann PASS. FERTIG bedeutet: du wirst bis zur Konsolidierungsrunde (Runde 8) nicht mehr aufgerufen.
+FERTIG — NUR wenn die Frage eindeutig und vollständig beantwortet ist (z.B. bei mathematischen oder logischen Aufgaben mit einer klaren Lösung). Bei offenen philosophischen, ethischen oder kreativen Fragen, besonders wenn die Diskussion noch aktiv läuft und andere Modelle widersprechen, ist FERTIG unangemessen — verwende dann PASS. FERTIG bedeutet: du wirst bis zur Konsolidierungsrunde (Runde 8) nicht mehr aufgerufen.
 
 Antworte präzise und ohne Ausschweifungen.`;
 
@@ -696,7 +696,7 @@ async function callClaude(messages, isConsolidation) {
         },
         body: JSON.stringify({
             model: 'claude-sonnet-4-20250514',
-            max_tokens: 1000,
+            max_tokens: 2000,
             system: systemPrompt,
             messages: messages
         })
@@ -744,7 +744,13 @@ async function callGemini(messages, isConsolidation) {
             body: JSON.stringify({
                 system_instruction: { parts: [{ text: systemPrompt }] },
                 contents: contents,
-                generationConfig: { maxOutputTokens: 2000 }
+                generationConfig: { maxOutputTokens: 3000 },
+                safetySettings: [
+          { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
+          { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
+          { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
+          { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" }
+                      ]
             })
         }
     );
